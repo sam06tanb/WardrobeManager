@@ -1,33 +1,39 @@
 # Wardrobe Manager 👕
 
-Um projeto full stack simples para gerenciar um catálogo de roupas, com operações básicas de CRUD (criar, listar, editar e excluir). 
+A simple full stack application to manage a clothing catalog, featuring basic CRUD operations (Create, Read, Update, Delete).
 
-### 🛠️ Tecnologias usadas
+### 🛠️ Technologies Used
 
 - 💻 **Frontend**: Angular
 - 🧠 **Backend**: Spring Boot
-- 🐘 **Banco de Dados**: PostgreSQL
-- 🐳 **Containerização**: Docker
-- 🧬 **Migrations**: Flyway
-- 🔍 **Dev Tools**: DBeaver, Lombok
+- 🐘 **Database**: PostgreSQL
+- 🐳 **Containerization**: Docker
+- 🔁 **Migrations**: Flyway
+- 🧰 **Dev Tools**: DBeaver, Lombok
 
-### 📦 Funcionalidades
+---
 
-- Cadastrar uma nova peça de roupa
-- Listar todas as roupas
-- Atualizar informações de uma roupa
-- Remover roupas cadastradas
-- Validação de dados obrigatórios (nome, cor, tamanho via enum)
+### 📦 Features
 
-### 🚀 Como rodar
+- Add new clothing items
+- List all items
+- Update clothing information
+- Delete clothing items
+- Required fields validation (name, color, size)
+- Enum-based clothing sizes (`sizePP`, `sizeP`, `sizeM`, `sizeG`, `sizeGG`, `sizeXG`)
 
-> Requisitos: Docker, Java 17+, Node.js, Angular CLI
+---
 
-1. **Subir o banco:**
-   ```bash
-   docker run --name roupasdb \
-     -e POSTGRES_DB=roupasdb \
-     -e POSTGRES_USER=postgres \
-     -e POSTGRES_PASSWORD=123456 \
-     -p 5433:5432 \
-     -d postgres
+### 🚀 How to Run Locally
+
+> Requirements: Docker, Java 17+, Node.js, Angular CLI
+
+1. **Start PostgreSQL with Docker:**
+
+```bash
+docker run --name roupasdb \
+  -e POSTGRES_DB=roupasdb \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=123456 \
+  -p 5433:5432 \
+  -d postgres

@@ -1,4 +1,9 @@
 package dev.samir.backangulart.Crud.DtoMapper;
 
-public class ClothDto {
-}
+import dev.samir.backangulart.Crud.EnumCloth;
+
+public record ClothDto(
+        String name,
+        EnumCloth size,
+        String color
+) {}
