@@ -25,7 +25,7 @@ Um projeto full stack simples para gerenciar um catálogo de roupas, com operaç
 
 1. **Subir o banco:**
    ```bash
-   docker run --name postgres-container \
+   docker run --name roupasdb \
      -e POSTGRES_DB=roupasdb \
      -e POSTGRES_USER=postgres \
      -e POSTGRES_PASSWORD=123456 \
