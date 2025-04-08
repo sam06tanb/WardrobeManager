@@ -1,9 +1,7 @@
-package dev.samir.backangulart.Crud.Controller.Service;
+package dev.samir.backangulart.Crud.Service;
 
-import dev.samir.backangulart.Crud.Controller.Model.Cloth;
-import dev.samir.backangulart.Crud.Controller.Repository.ClothRepository;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import dev.samir.backangulart.Crud.Model.Cloth;
+import dev.samir.backangulart.Crud.Repository.ClothRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;

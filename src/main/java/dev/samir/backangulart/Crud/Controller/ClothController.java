@@ -1,15 +1,14 @@
-package dev.samir.backangulart.Crud.Controller.Controller;
+package dev.samir.backangulart.Crud.Controller;
 
-import dev.samir.backangulart.Crud.Controller.Model.Cloth;
-import dev.samir.backangulart.Crud.Controller.Service.ClothService;
-import lombok.RequiredArgsConstructor;
+import dev.samir.backangulart.Crud.Model.Cloth;
+import dev.samir.backangulart.Crud.Service.ClothService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/roupa")
+@RequestMapping("/cloth")
 public class ClothController {
 
     private ClothService clothService;
@@ -19,29 +18,29 @@ public class ClothController {
     }
 
     @GetMapping("/show")
-    public List<Cloth> getRoupa() {
+    public List<Cloth> showList() {
         return clothService.showlist();
     }
 
     @GetMapping("/show/{id}")
-    public ResponseEntity<Cloth> getRoupaById(@PathVariable Long id) {
+    public ResponseEntity<Cloth> showListById(@PathVariable Long id) {
         return clothService.showListById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/add")
-    public Cloth adicionarRoupa(@RequestBody Cloth cloth) {
+    public Cloth create(@RequestBody Cloth cloth) {
         return clothService.create(cloth);
     }
 
     @PutMapping("/update/{id}")
-    public Cloth editarRoupa(@PathVariable Long id, @RequestBody Cloth cloth) {
+    public Cloth update(@PathVariable Long id, @RequestBody Cloth cloth) {
         return clothService.update(id, cloth);
     }
 
-    @DeleteMapping("/delete")
-    public void removerRoupa(@RequestBody Long id) {
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id) {
         clothService.delete(id);
     }
 

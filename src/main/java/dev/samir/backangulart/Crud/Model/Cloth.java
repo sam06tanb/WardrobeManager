@@ -1,10 +1,10 @@
-package dev.samir.backangulart.Crud.Controller.Model;
+package dev.samir.backangulart.Crud.Model;
 
-import dev.samir.backangulart.Crud.Controller.EnumCloth;
+import dev.samir.backangulart.Crud.EnumCloth;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roupa")
+@Table(name = "tb_cloth")
 public class Cloth {
 
     @Id
