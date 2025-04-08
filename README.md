@@ -20,7 +20,7 @@ A simple full stack application to manage a clothing catalog, featuring basic CR
 - Update clothing information
 - Delete clothing items
 - Required fields validation (name, color, size)
-- Enum-based clothing sizes (`PP`, `P`, `M`, `G`, `GG`, `XG`)
+- Enum-based clothing sizes (`sizePP`, `sizeP`, `sizeM`, `sizeG`, `sizeGG`, `sizeXG`)
 
 ---
 
