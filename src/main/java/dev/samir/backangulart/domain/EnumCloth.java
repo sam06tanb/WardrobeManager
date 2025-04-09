@@ -1,4 +1,4 @@
-package dev.samir.backangulart.Crud;
+package dev.samir.backangulart.domain;
 
 public enum EnumCloth {
 

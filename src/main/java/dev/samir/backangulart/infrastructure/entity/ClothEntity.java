@@ -1,11 +1,11 @@
-package dev.samir.backangulart.Crud.Model;
+package dev.samir.backangulart.infrastructure.entity;
 
-import dev.samir.backangulart.Crud.EnumCloth;
+import dev.samir.backangulart.domain.EnumCloth;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_cloth")
-public class Cloth {
+public class ClothEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +17,13 @@ public class Cloth {
     private EnumCloth size;
     private String color;
 
-    public Cloth(Long id, String name, EnumCloth size, String color) {
+    public ClothEntity() {}
+
+    public ClothEntity(Long id, String name, EnumCloth size, String color) {
         this.id = id;
         this.name = name;
         this.size = size;
         this.color = color;
-    }
-
-    public Cloth() {
-
     }
 
     public Long getId() {
