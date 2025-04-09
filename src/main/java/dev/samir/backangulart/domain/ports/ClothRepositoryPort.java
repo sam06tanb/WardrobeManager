@@ -1,5 +1,6 @@
 package dev.samir.backangulart.domain.ports;
 
+import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +15,5 @@ public interface ClothRepositoryPort {
 
     void deleteById(Long id);
 
+    List<Cloth> findBySize(EnumCloth size);
 }

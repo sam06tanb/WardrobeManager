@@ -1,5 +1,6 @@
 package dev.samir.backangulart.infrastructure.Repository;
 
+import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
 import dev.samir.backangulart.domain.ports.ClothRepositoryPort;
 import dev.samir.backangulart.infrastructure.entity.ClothEntity;
@@ -45,4 +46,11 @@ public class ClothJpaRepository implements ClothRepositoryPort {
     public void deleteById(Long id) {
             repository.deleteById(id);
         }
+
+    @Override
+    public List<Cloth> findBySize(EnumCloth size) {
+        return repository.findBySize(size).stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
     }
+}

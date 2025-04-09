@@ -1,5 +1,6 @@
 package dev.samir.backangulart.application.Service;
 
+import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
 import dev.samir.backangulart.domain.ports.ClothRepositoryPort;
 import org.springframework.stereotype.Service;
@@ -40,4 +41,9 @@ public class ClothService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    public List<Cloth> findBySize(EnumCloth size) {
+        return repository.findBySize(size);
+    }
+
 }

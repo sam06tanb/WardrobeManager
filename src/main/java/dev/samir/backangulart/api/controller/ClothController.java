@@ -2,6 +2,7 @@ package dev.samir.backangulart.api.controller;
 
 import dev.samir.backangulart.api.dto.ClothDto;
 import dev.samir.backangulart.api.dto.mapper.ClothDtoMapper;
+import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +61,16 @@ public class ClothController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/size/{size}")
+    public ResponseEntity<List<ClothDto>> getBySize(@PathVariable EnumCloth size) {
+        List<ClothDto> list = clothService.findBySize(size)
+                .stream()
+                .map(dtoMapper::toDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(list);
+    }
+
 }
 
