@@ -41,6 +41,7 @@ public class ClothController {
     }
 
     @DeleteMapping("delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         clothService.delete(id);
         return ResponseEntity.noContent().build();
