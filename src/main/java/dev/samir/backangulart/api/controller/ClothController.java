@@ -4,6 +4,7 @@ import dev.samir.backangulart.api.dto.ClothDto;
 import dev.samir.backangulart.api.dto.mapper.ClothDtoMapper;
 import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class ClothController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ClothDto> add(@RequestBody ClothDto clothDto) {
+    public ResponseEntity<ClothDto> add(@Valid @RequestBody ClothDto clothDto) {
         Cloth cloth = dtoMapper.toDomain(clothDto);
         Cloth created = clothService.create(cloth);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -32,7 +33,7 @@ public class ClothController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<ClothDto> update(@PathVariable Long id, @RequestBody ClothDto clothDto) {
+    public ResponseEntity<ClothDto> update(@PathVariable Long id,@Valid @RequestBody ClothDto clothDto) {
         Cloth updatedCloth = dtoMapper.toDomain(clothDto);
         return clothService.update(id, updatedCloth)
                 .map(dtoMapper::toDto)
