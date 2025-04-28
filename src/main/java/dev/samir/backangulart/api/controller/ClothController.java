@@ -57,11 +57,10 @@ public class ClothController {
     }
 
     @GetMapping("show/{id}")
-    public ResponseEntity<ClothDto> showById(@PathVariable Long id) {
-        return clothService.findById(id)
-                .map(dtoMapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ClothDto> findById(@PathVariable Long id) {
+        Cloth cloth = clothService.findById(id);
+        ClothDto clothDto = dtoMapper.toDto(cloth);
+        return ResponseEntity.ok(clothDto);
     }
 
     @GetMapping("/size/{size}")

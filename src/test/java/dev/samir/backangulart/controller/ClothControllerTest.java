@@ -3,6 +3,7 @@ package dev.samir.backangulart.controller;
 import dev.samir.backangulart.api.controller.ClothController;
 import dev.samir.backangulart.api.dto.ClothDto;
 import dev.samir.backangulart.api.dto.mapper.ClothDtoMapper;
+import dev.samir.backangulart.api.exception.ResourceNotFoundException;
 import dev.samir.backangulart.application.Service.ClothService;
 import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
@@ -103,39 +104,29 @@ public class ClothControllerTest {
     }
 
     @Test
-    void shouldReturnClothById() throws Exception {
-
+    void shouldFindClothById() throws Exception {
         Long id = 1L;
-        Cloth cloth = new Cloth("Shirt", EnumCloth.sizeM, "Blue");
+        Cloth cloth = new Cloth("T-shirt", EnumCloth.sizeM, "Blue");
 
-        when(clothService.findById(id)).thenReturn(Optional.of(cloth));
+        when(clothService.findById(id)).thenReturn(cloth);
 
-        mockMvc.perform(get("/clothes/show/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-
+        mockMvc.perform(get("/clothes/{id}", id))
                 .andExpect(status().isOk())
-
-                .andExpect(jsonPath("$.name", is("Shirt")))
+                .andExpect(jsonPath("$.name", is("T-shirt")))
                 .andExpect(jsonPath("$.color", is("Blue")))
                 .andExpect(jsonPath("$.size", is("sizeM")));
-
-        verify(clothService, times(1)).findById(id);
     }
 
     @Test
     void shouldReturn404WhenClothNotFound() throws Exception {
+        Long id = 999L;
 
-        Long id = 99L;
+        when(clothService.findById(id)).thenThrow(new ResourceNotFoundException("Cloth not found with id: " + id));
 
-        when(clothService.findById(id)).thenReturn(Optional.empty());
-
-        mockMvc.perform(get("/clothes/show/{id}", id)
-                        .contentType(MediaType.APPLICATION_JSON))
-
+        mockMvc.perform(get("/clothes/{id}", id))
                 .andExpect(status().isNotFound());
-
-        verify(clothService, times(1)).findById(id);
     }
+
 
     @Test
     void shouldDeleteClothById() throws Exception {

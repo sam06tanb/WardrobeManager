@@ -1,5 +1,6 @@
 package dev.samir.backangulart.application.Service;
 
+import dev.samir.backangulart.api.exception.ResourceNotFoundException;
 import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
 import dev.samir.backangulart.domain.ports.ClothRepositoryPort;
@@ -20,8 +21,9 @@ public class ClothService {
         return repository.findAll();
     }
 
-    public Optional<Cloth> findById(Long id) {
-        return repository.findById(id);
+    public Cloth findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cloth not found with id: " + id));
     }
 
     public Cloth create(Cloth cloth) {
