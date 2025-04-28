@@ -1,5 +1,6 @@
 package dev.samir.backangulart.application;
 
+import dev.samir.backangulart.api.exception.ResourceNotFoundException;
 import dev.samir.backangulart.application.Service.ClothService;
 import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
@@ -12,6 +13,7 @@ import java.util.Optional;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ClothServiceTest {
@@ -40,20 +42,22 @@ public class ClothServiceTest {
         Cloth cloth = new Cloth("Shirt", EnumCloth.sizeM, "Blue");
 
         when(repositoryPort.findById(id)).thenReturn(Optional.of(cloth));
-        Optional<Cloth> result = clothService.findById(id);
+        Cloth result = clothService.findById(id);
 
-        assertEquals(Optional.of(cloth), result);
+        assertEquals(cloth, result);
         verify(repositoryPort).findById(id);
     }
 
     @Test
-    public void shouldReturnEmptyCloth() {
+    public void shouldThrowExceptionWhenClothNotFound() {
         Long id = 99L;
 
         when(repositoryPort.findById(id)).thenReturn(Optional.empty());
-        Optional<Cloth> result = clothService.findById(id);
 
-        assertEquals(Optional.empty(), result);
+        assertThrows(ResourceNotFoundException.class, () -> {
+            clothService.findById(id);
+        });
+
         verify(repositoryPort).findById(id);
     }
 
