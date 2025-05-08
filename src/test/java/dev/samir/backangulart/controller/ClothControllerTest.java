@@ -108,7 +108,7 @@ public class ClothControllerTest {
         Long id = 1L;
         Cloth cloth = new Cloth("T-shirt", EnumCloth.sizeM, "Blue");
 
-        when(clothService.findById(id)).thenReturn(cloth);
+        when(clothService.findById(id)).thenReturn(Optional.of(cloth));
 
         mockMvc.perform(get("/clothes/{id}", id))
                 .andExpect(status().isOk())

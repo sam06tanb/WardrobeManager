@@ -42,9 +42,9 @@ public class ClothServiceTest {
         Cloth cloth = new Cloth("Shirt", EnumCloth.sizeM, "Blue");
 
         when(repositoryPort.findById(id)).thenReturn(Optional.of(cloth));
-        Cloth result = clothService.findById(id);
+        Optional<Cloth> result = clothService.findById(id);
 
-        assertEquals(cloth, result);
+        assertEquals(Optional.of(cloth), result);
         verify(repositoryPort).findById(id);
     }
 

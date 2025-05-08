@@ -13,6 +13,8 @@ public interface ClothRepositoryPort {
 
     Cloth save(Cloth cloth);
 
+    Optional<Cloth> update(Long id,Cloth cloth);
+
     void deleteById(Long id);
 
     List<Cloth> findBySize(EnumCloth size);

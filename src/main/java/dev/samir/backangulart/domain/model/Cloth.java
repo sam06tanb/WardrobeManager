@@ -4,6 +4,7 @@ import dev.samir.backangulart.domain.EnumCloth;
 
 public class Cloth {
 
+    private Long id;
     private String name;
     private EnumCloth size;
     private String color;
@@ -15,6 +16,14 @@ public class Cloth {
     }
 
     public Cloth() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -35,11 +35,22 @@ public class ClothJpaRepository implements ClothRepositoryPort {
             .map(mapper::toDomain);
    }
 
-   @Override
+    @Override
     public Cloth save(Cloth cloth) {
         ClothEntity entity = mapper.toEntity(cloth);
         ClothEntity saved = repository.save(entity);
         return mapper.toDomain(saved);
+    }
+
+    @Override
+    public Optional<Cloth> update(Long id, Cloth cloth) {
+        return repository.findById(id).map(existing -> {
+            existing.setName(cloth.getName());
+            existing.setSize(cloth.getSize());
+            existing.setColor(cloth.getColor());
+            var updated = repository.save(existing);
+            return mapper.toDomain(updated);
+        });
     }
 
     @Override
