@@ -18,12 +18,11 @@ public class ClothController {
 
     private final ClothService clothService;
     private final ClothDtoMapper dtoMapper;
-    private final ClothDtoMapper clothDtoMapper;
 
-    public ClothController(ClothService clothService, ClothDtoMapper dtoMapper, ClothDtoMapper clothDtoMapper) {
+    public ClothController(ClothService clothService, ClothDtoMapper dtoMapper) {
         this.clothService = clothService;
         this.dtoMapper = dtoMapper;
-        this.clothDtoMapper = clothDtoMapper;
+
     }
 
     @PostMapping("/add")
@@ -36,7 +35,7 @@ public class ClothController {
 
     @PutMapping("update/{id}")
     public ResponseEntity<ClothDto> update(@PathVariable Long id,@Valid @RequestBody ClothDto clothDto) {
-        return clothService.update(id, clothDtoMapper.toDomain(clothDto))
+        return clothService.update(id, dtoMapper.toDomain(clothDto))
                 .map(dtoMapper::toDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -59,10 +58,8 @@ public class ClothController {
 
     @GetMapping("show/{id}")
     public ResponseEntity<ClothDto> findById(@PathVariable Long id) {
-        return clothService.findById(id)
-                .map(dtoMapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Cloth cloth = clothService.findById(id);
+        return ResponseEntity.ok(dtoMapper.toDto(cloth));
     }
 
     @GetMapping("/size/{size}")

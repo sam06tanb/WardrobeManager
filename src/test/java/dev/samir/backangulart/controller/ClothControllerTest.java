@@ -3,6 +3,7 @@ package dev.samir.backangulart.controller;
 import dev.samir.backangulart.api.controller.ClothController;
 import dev.samir.backangulart.api.dto.ClothDto;
 import dev.samir.backangulart.api.dto.mapper.ClothDtoMapper;
+import dev.samir.backangulart.api.exception.GlobalExceptionHandler;
 import dev.samir.backangulart.api.exception.ResourceNotFoundException;
 import dev.samir.backangulart.application.Service.ClothService;
 import dev.samir.backangulart.domain.EnumCloth;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ClothController.class)
-@Import(ClothControllerTest.TestConfig.class)
+@Import({ClothControllerTest.TestConfig.class, GlobalExceptionHandler.class})
 public class ClothControllerTest {
 
     @Autowired
@@ -108,9 +109,11 @@ public class ClothControllerTest {
         Long id = 1L;
         Cloth cloth = new Cloth("T-shirt", EnumCloth.sizeM, "Blue");
 
-        when(clothService.findById(id)).thenReturn(Optional.of(cloth));
+        when(clothService.findById(id)).thenReturn(cloth);
+        when(clothDtoMapper.toDto(cloth))
+                .thenReturn(new ClothDto("T-shirt", EnumCloth.sizeM, "Blue"));
 
-        mockMvc.perform(get("/clothes/{id}", id))
+        mockMvc.perform(get("/clothes/show/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("T-shirt")))
                 .andExpect(jsonPath("$.color", is("Blue")))
@@ -123,7 +126,7 @@ public class ClothControllerTest {
 
         when(clothService.findById(id)).thenThrow(new ResourceNotFoundException("Cloth not found with id: " + id));
 
-        mockMvc.perform(get("/clothes/{id}", id))
+        mockMvc.perform(get("/clothes/show/{id}", id))
                 .andExpect(status().isNotFound());
     }
 

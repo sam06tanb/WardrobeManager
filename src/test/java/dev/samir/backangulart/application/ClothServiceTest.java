@@ -42,15 +42,16 @@ public class ClothServiceTest {
         Cloth cloth = new Cloth("Shirt", EnumCloth.sizeM, "Blue");
 
         when(repositoryPort.findById(id)).thenReturn(Optional.of(cloth));
-        Optional<Cloth> result = clothService.findById(id);
 
-        assertEquals(Optional.of(cloth), result);
+        Cloth result = clothService.findById(id);
+
+        assertEquals(cloth, result);
         verify(repositoryPort).findById(id);
     }
 
     @Test
     public void shouldThrowExceptionWhenClothNotFound() {
-        Long id = 99L;
+        Long id = 999L;
 
         when(repositoryPort.findById(id)).thenReturn(Optional.empty());
 
