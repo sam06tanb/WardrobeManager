@@ -55,8 +55,8 @@ public class ClothControllerTest {
 
     @Test
     void shouldCreateCloth() throws Exception {
-        ClothDto request = new ClothDto("Shirt", EnumCloth.sizeM, "Blue");
-        Cloth cloth = new Cloth("Shirt", EnumCloth.sizeM, "Blue");
+        ClothDto request = new ClothDto(1L, "Shirt", EnumCloth.sizeM, "Blue");
+        Cloth cloth = new Cloth(1L, "Shirt", EnumCloth.sizeM, "Blue");
 
         when(clothDtoMapper.toDomain(Mockito.any(ClothDto.class))).thenReturn(cloth);
         when(clothService.create(Mockito.any(Cloth.class))).thenReturn(cloth);
@@ -81,8 +81,8 @@ public class ClothControllerTest {
     @Test
     void shouldListAllClothes() throws Exception {
         List<Cloth> clothes = List.of(
-                new Cloth("Shirt", EnumCloth.sizeM, "Blue"),
-                new Cloth("Jacket", EnumCloth.sizeM, "Black")
+                new Cloth(1L, "Shirt", EnumCloth.sizeM, "Blue"),
+                new Cloth(1L,"Jacket", EnumCloth.sizeM, "Black")
         );
 
         when(clothService.listAll()).thenReturn(clothes);
@@ -107,11 +107,11 @@ public class ClothControllerTest {
     @Test
     void shouldFindClothById() throws Exception {
         Long id = 1L;
-        Cloth cloth = new Cloth("T-shirt", EnumCloth.sizeM, "Blue");
+        Cloth cloth = new Cloth(id, "T-shirt", EnumCloth.sizeM, "Blue");
 
         when(clothService.findById(id)).thenReturn(cloth);
         when(clothDtoMapper.toDto(cloth))
-                .thenReturn(new ClothDto("T-shirt", EnumCloth.sizeM, "Blue"));
+                .thenReturn(new ClothDto(id, "T-shirt", EnumCloth.sizeM, "Blue"));
 
         mockMvc.perform(get("/clothes/show/{id}", id))
                 .andExpect(status().isOk())
@@ -152,8 +152,8 @@ public class ClothControllerTest {
 
         Long id = 1L;
 
-        ClothDto request = new ClothDto("Updated Shirt", EnumCloth.sizeM, "Blue");
-        Cloth updatedCloth = new Cloth("Updated Shirt", EnumCloth.sizeM, "Blue");
+        ClothDto request = new ClothDto(id, "Updated Shirt", EnumCloth.sizeM, "Blue");
+        Cloth updatedCloth = new Cloth(id, "Updated Shirt", EnumCloth.sizeM, "Blue");
 
 
         when(clothDtoMapper.toDomain(any(ClothDto.class))).thenReturn(updatedCloth);
@@ -185,8 +185,8 @@ public class ClothControllerTest {
         String size = "sizeM";
 
         List<Cloth> clothes = List.of(
-                new Cloth("Shirt", EnumCloth.sizeM, "Blue"),
-                new Cloth("Polo", EnumCloth.sizeM, "White")
+                new Cloth(1L, "Shirt", EnumCloth.sizeM, "Blue"),
+                new Cloth(1L, "Polo", EnumCloth.sizeM, "White")
         );
 
         when(clothService.findBySize(EnumCloth.valueOf(size))).thenReturn(clothes);
@@ -194,7 +194,7 @@ public class ClothControllerTest {
         when(clothDtoMapper.toDto(any(Cloth.class)))
                 .thenAnswer(invocation -> {
                     Cloth cloth = invocation.getArgument(0);
-                    return new ClothDto(cloth.getName(), cloth.getSize(), cloth.getColor());
+                    return new ClothDto(cloth.getId(), cloth.getName(), cloth.getSize(), cloth.getColor());
                 });
 
         mockMvc.perform(get("/clothes/size/{size}", size)

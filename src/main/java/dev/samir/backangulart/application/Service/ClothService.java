@@ -35,7 +35,7 @@ public class ClothService {
             existing.setName(updatedData.getName());
             existing.setColor(updatedData.getColor());
             existing.setSize(updatedData.getSize());
-            return Optional.of(repository.save(existing));
+            return repository.update(id, updatedData);
         });
     }
 

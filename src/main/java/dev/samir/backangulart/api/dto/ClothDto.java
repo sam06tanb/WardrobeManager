@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 
 public record ClothDto(
 
+
+        Long id,
+
         @NotBlank(message = "Name cannot be empty")
         String name,
 

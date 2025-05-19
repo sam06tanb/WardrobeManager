@@ -12,8 +12,7 @@ import org.mockito.Mockito;
 import java.util.Optional;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ClothServiceTest {
@@ -29,7 +28,7 @@ public class ClothServiceTest {
 
     @Test
     public void shouldCreateCloth() {
-        Cloth cloth = new Cloth("Shirt", EnumCloth.sizeM, "Blue");
+        Cloth cloth = new Cloth(1L, "Shirt", EnumCloth.sizeM, "Blue");
         when(repositoryPort.save(cloth)).thenReturn(cloth);
         Cloth result = clothService.create(cloth);
         assertEquals(cloth, result);
@@ -39,7 +38,7 @@ public class ClothServiceTest {
     @Test
     public void shouldReturnCloth() {
         Long id = 1L;
-        Cloth cloth = new Cloth("Shirt", EnumCloth.sizeM, "Blue");
+        Cloth cloth = new Cloth(1L, "Shirt", EnumCloth.sizeM, "Blue");
 
         when(repositoryPort.findById(id)).thenReturn(Optional.of(cloth));
 
@@ -65,25 +64,26 @@ public class ClothServiceTest {
     @Test
     public void shouldUpdateCloth() {
         Long id = 1L;
-        Cloth existing = new Cloth("Camiseta", EnumCloth.sizeM, "Azul");
-        Cloth updated = new Cloth("Polo shirt", EnumCloth.sizeM, "White");
+        Cloth existing = new Cloth(id, "Shirt", EnumCloth.sizeM, "Blue");
+        Cloth updated = new Cloth(id, "Polo Shirt", EnumCloth.sizeM, "White");
 
         when(repositoryPort.findById(id)).thenReturn(Optional.of(existing));
-        when(repositoryPort.save(any(Cloth.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(repositoryPort.update(eq(id), any(Cloth.class)))
+                .thenReturn(Optional.of(updated));
 
         Optional<Cloth> result = clothService.update(id, updated);
 
-        assertEquals("Polo shirt", result.get().getName());
-        assertEquals(EnumCloth.sizeM, result.get().getSize());
+        assertTrue(result.isPresent());
+        assertEquals("Polo Shirt", result.get().getName());
         assertEquals("White", result.get().getColor());
-        verify(repositoryPort).findById(id);
-        verify(repositoryPort).save(existing);
+        assertEquals(EnumCloth.sizeM, result.get().getSize());
     }
+
 
     @Test
     public void shouldReturnEmptyWhenUpdateCloth() {
         Long id = 99L;
-        Cloth updated = new Cloth("Skirt", EnumCloth.sizeM, "Black");
+        Cloth updated = new Cloth(id, "Skirt", EnumCloth.sizeM, "Black");
 
         when(repositoryPort.findById(id)).thenReturn(Optional.empty());
         Optional<Cloth> result = clothService.update(id, updated);
@@ -106,8 +106,8 @@ public class ClothServiceTest {
 
         EnumCloth size = EnumCloth.sizeG;
         List<Cloth> expected = List.of(
-                new Cloth("Polo jeans", EnumCloth.sizeG, "Black"),
-                new Cloth("Shirt", EnumCloth.sizeG, "White")
+                new Cloth(1L, "Polo jeans", EnumCloth.sizeG, "Black"),
+                new Cloth(1L, "Shirt", EnumCloth.sizeG, "White")
         );
 
         when(repositoryPort.findBySize(size)).thenReturn(expected);

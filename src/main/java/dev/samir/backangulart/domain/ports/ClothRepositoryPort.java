@@ -18,4 +18,5 @@ public interface ClothRepositoryPort {
     void deleteById(Long id);
 
     List<Cloth> findBySize(EnumCloth size);
+
 }

@@ -9,7 +9,7 @@ public class Cloth {
     private EnumCloth size;
     private String color;
 
-    public Cloth(String name, EnumCloth size, String color) {
+    public Cloth(Long id, String name, EnumCloth size, String color) {
         this.name = name;
         this.size = size;
         this.color = color;

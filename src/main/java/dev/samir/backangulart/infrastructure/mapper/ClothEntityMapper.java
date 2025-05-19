@@ -10,6 +10,7 @@ public class ClothEntityMapper {
         public Cloth toDomain(ClothEntity clothEntity) {
             if (clothEntity == null) return null;
             return new Cloth(
+                    clothEntity.getId(),
                     clothEntity.getName(),
                     clothEntity.getSize(),
                     clothEntity.getColor());

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 public class ClothDtoMapper {
 
     public ClothDto toDto(Cloth cloth) {
-        return new ClothDto(cloth.getName(), cloth.getSize(), cloth.getColor());
+        return new ClothDto(cloth.getId(), cloth.getName(), cloth.getSize(), cloth.getColor());
     }
 
     public Cloth toDomain(ClothDto dto) {
-        return new Cloth(dto.name(), dto.size(), dto.color());
+        return new Cloth(dto.id(), dto.name(), dto.size(), dto.color());
     }
 
 }
