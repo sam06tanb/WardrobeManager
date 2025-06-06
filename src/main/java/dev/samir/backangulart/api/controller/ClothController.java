@@ -22,7 +22,6 @@ public class ClothController {
     public ClothController(ClothService clothService, ClothDtoMapper dtoMapper) {
         this.clothService = clothService;
         this.dtoMapper = dtoMapper;
-
     }
 
     @PostMapping("/add")
