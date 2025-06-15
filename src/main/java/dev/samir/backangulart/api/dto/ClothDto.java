@@ -12,10 +12,10 @@ public record ClothDto(
         @NotBlank(message = "Name cannot be empty")
         String name,
 
-        @NotBlank(message = "Color cannot be empty")
+        @NotNull(message = "Size must be provided")
         EnumCloth size,
 
-        @NotNull(message = "Size must be provided")
+        @NotBlank(message = "Color cannot be empty")
         String color
 
 ) {}
