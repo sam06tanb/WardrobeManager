@@ -1,6 +1,7 @@
 package dev.samir.backangulart.api.controller;
 
-import dev.samir.backangulart.api.dto.ClothDto;
+import dev.samir.backangulart.api.dto.ClothResponseDto;
+import dev.samir.backangulart.api.dto.CreateClothRequestDto;
 import dev.samir.backangulart.api.dto.mapper.ClothDtoMapper;
 import dev.samir.backangulart.domain.EnumCloth;
 import dev.samir.backangulart.domain.model.Cloth;
@@ -25,17 +26,17 @@ public class ClothController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ClothDto> add(@Valid @RequestBody ClothDto clothDto) {
+    public ResponseEntity<ClothResponseDto> add(@Valid @RequestBody CreateClothRequestDto clothDto) {
         Cloth cloth = dtoMapper.toDomain(clothDto);
         Cloth created = clothService.create(cloth);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(dtoMapper.toDto(created));
+                .body(dtoMapper.toResponseDto(created));
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<ClothDto> update(@PathVariable Long id,@Valid @RequestBody ClothDto clothDto) {
+    public ResponseEntity<ClothResponseDto> update(@PathVariable Long id,@Valid @RequestBody CreateClothRequestDto clothDto) {
         return clothService.update(id, dtoMapper.toDomain(clothDto))
-                .map(dtoMapper::toDto)
+                .map(dtoMapper::toResponseDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -48,24 +49,24 @@ public class ClothController {
     }
 
     @GetMapping("/show")
-    public ResponseEntity<List<ClothDto>> show() {
-        List<ClothDto> clothes = clothService.listAll().stream()
-                .map(dtoMapper::toDto)
+    public ResponseEntity<List<ClothResponseDto>> show() {
+        List<ClothResponseDto> clothes = clothService.listAll().stream()
+                .map(dtoMapper::toResponseDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(clothes);
     }
 
     @GetMapping("show/{id}")
-    public ResponseEntity<ClothDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ClothResponseDto> findById(@PathVariable Long id) {
         Cloth cloth = clothService.findById(id);
-        return ResponseEntity.ok(dtoMapper.toDto(cloth));
+        return ResponseEntity.ok(dtoMapper.toResponseDto(cloth));
     }
 
     @GetMapping("/size/{size}")
-    public ResponseEntity<List<ClothDto>> getBySize(@PathVariable EnumCloth size) {
-        List<ClothDto> list = clothService.findBySize(size)
+    public ResponseEntity<List<ClothResponseDto>> getBySize(@PathVariable EnumCloth size) {
+        List<ClothResponseDto> list = clothService.findBySize(size)
                 .stream()
-                .map(dtoMapper::toDto)
+                .map(dtoMapper::toResponseDto)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(list);

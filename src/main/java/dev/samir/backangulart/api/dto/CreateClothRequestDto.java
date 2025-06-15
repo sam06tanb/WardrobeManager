@@ -4,11 +4,7 @@ import dev.samir.backangulart.domain.EnumCloth;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record ClothDto(
-
-
-        Long id,
-
+public record CreateClothRequestDto(
         @NotBlank(message = "Name cannot be empty")
         String name,
 
@@ -17,5 +13,4 @@ public record ClothDto(
 
         @NotBlank(message = "Color cannot be empty")
         String color
-
 ) {}

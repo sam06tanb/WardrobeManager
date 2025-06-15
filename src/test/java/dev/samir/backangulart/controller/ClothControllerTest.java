@@ -1,7 +1,6 @@
 package dev.samir.backangulart.controller;
 
 import dev.samir.backangulart.api.controller.ClothController;
-import dev.samir.backangulart.api.dto.ClothDto;
 import dev.samir.backangulart.api.dto.mapper.ClothDtoMapper;
 import dev.samir.backangulart.api.exception.GlobalExceptionHandler;
 import dev.samir.backangulart.api.exception.ResourceNotFoundException;
