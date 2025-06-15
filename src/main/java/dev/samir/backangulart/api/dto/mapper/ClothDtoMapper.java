@@ -10,11 +10,11 @@ public class ClothDtoMapper {
 
 
     public Cloth toDomain(CreateClothRequestDto dto) {
-        return new Cloth(null, dto.name(), dto.size(), dto.color());
+        return new Cloth(dto.id(), dto.name(), dto.size(), dto.color());
     }
 
     public ClothResponseDto toResponseDto(Cloth cloth) {
-        return new ClothResponseDto(cloth.getName(), cloth.getSize(), cloth.getColor());
+        return new ClothResponseDto(cloth.getId(),cloth.getName(), cloth.getSize(), cloth.getColor());
     }
 
 }

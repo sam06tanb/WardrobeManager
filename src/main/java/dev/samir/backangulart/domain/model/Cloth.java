@@ -10,6 +10,7 @@ public class Cloth {
     private String color;
 
     public Cloth(Long id, String name, EnumCloth size, String color) {
+        this.id = id;
         this.name = name;
         this.size = size;
         this.color = color;
